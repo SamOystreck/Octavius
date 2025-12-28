@@ -8,14 +8,17 @@ Current (start of development) thoughts:
 - Create mobile app to compliment the Python in Kotlin and communicate between the two using
 
 
-
+# Notes
 Currently there is no support for the SQL server, when development is a little further along this will be rectified
+
+Vosk models need to be added to gitignore (they are for you Sam)
 
 
 
 
 Current implementation goals (will change if they do not meet standards):
-    - speechrecognition for speech to text
+    - Porcupine wake word
+    - Vosk for Speech to text
 
 
 Planning for python implementation of food

@@ -8,13 +8,9 @@ from array import array
 #                  - Need to add some custom words it won't recognize
 
 # Load Vosk model
-model = Model("vosk-model-en-us-0.22(1.8G)")
-recog = KaldiRecognizer(model, 16000)
-
-# Initialize PvRecorder
-recorder = PvRecorder(device_index=-1, frame_length=512)  # -1 = default mic
-recorder.start()
-print("Listening... Press Ctrl+C to stop")
+hertz = 16000
+vosk_model = Model("vosk-model-en-us-0.22(1.8G)")
+kaldi_recognier = KaldiRecognizer(vosk_model, hertz)
 
 
 # Initialize PvRecorder
@@ -40,8 +36,8 @@ try:
             continue  # ignore first frames
 
         # Feed to Vosk recognizer
-        if recog.AcceptWaveform(data):
-            result = json.loads(recog.Result())
+        if kaldi_recognier.AcceptWaveform(data):
+            result = json.loads(kaldi_recognier.Result())
             print(result.get("text", ""))
         else:
             pass

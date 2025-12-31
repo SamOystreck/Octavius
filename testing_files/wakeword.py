@@ -4,27 +4,28 @@ from dotenv import load_dotenv
 import os
 from pvrecorder import PvRecorder
 
-load_dotenv()
 
+load_dotenv()
 
 porcupine = pvporcupine.create(
     access_key=os.getenv("PORCUPINE_ACCESS_KEY"),
     keyword_paths=['picovoice\\Octavius_en_windows_v4_0_0.ppn']
 )
 
-recoder = PvRecorder(device_index=-1, frame_length=porcupine.frame_length)
+recorder = PvRecorder(device_index=-1, frame_length=porcupine.frame_length)
 
 try:
-    recoder.start()
+    recorder.start()
 
     while True:
-        keyword_index = porcupine.process(recoder.read())
+        frame = recorder.read()
+        keyword_index = porcupine.process(recorder.read())
         if keyword_index >= 0:
             print(f"Detected")
-            #send future audio to vosk
+            #start sending audio to vosk processor (websocket)
 
 except KeyboardInterrupt:
-    recoder.stop()
+    recorder.stop()
 finally:
     porcupine.delete()
-    recoder.delete()
+    recorder.delete()

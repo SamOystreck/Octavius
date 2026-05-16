@@ -1,14 +1,15 @@
 #Currently just testing SQL functions using python
-import mysql.connector
 from dotenv import load_dotenv
 import os
+import mysql.connector
 
-load_dotenv()
+load_dotenv(".env")
+
 
 db = mysql.connector.connect(
     host = os.getenv("DB_HOST"),
-    user = os.getenv("DB_MODIFIER_NAME"),
-    passwd = os.getenv("DB_MODIFIER_PWD"),
+    user = os.getenv("DB_USER_NAME"),
+    passwd = os.getenv("DB_USER_PWD"),
 )
 
 db.autocommit = True
